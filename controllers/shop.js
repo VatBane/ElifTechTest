@@ -1,9 +1,15 @@
 const Product = require('../models/Product')
+//this
+const Shop = require('../models/Shop')
 
 const getAllProducts = async (req, res) => {
   try {
-    const {shop: shopName} = req.params; 
-    const products = await Product.find({shop: shopName});
+    const {shop: shopAlias} = req.params;
+    const shop = await Shop.findOne({urlAlias: shopAlias});
+    if (!shop) {
+      return res.status(404).json({msg: `There is no such a shop`})
+    }
+    const products = await Product.find({shop: shop.name});
     res.status(200).json({ products });
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -71,10 +77,21 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const createShop = async (req, res) => {
+  try {
+    const shop = await Shop.create(req.body);
+    res.status(201).json({ shop });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
+
 module.exports = {
   getAllProducts,
   getProduct,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  createShop
 }
