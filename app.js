@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const shop = require("./routes/shop");
+const shops = require("./routes/shops");
 // const cart = require("./routes/cart");
 const connectDB = require('./db/connect')
 require('dotenv').config()
@@ -10,7 +10,7 @@ app.use(express.static("./public"));
 app.use(express.json())
 
 // routes
-app.use('/api/v1/shops', shop)
+app.use('/api/v1/shops', shops)
 // app.use('/api/v1/cart', cart)
 
 const port = 8080;
