@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-// const tasks = require("./routes/tasks");
+const shop = require("./routes/shop");
+// const cart = require("./routes/cart");
 const connectDB = require('./db/connect')
 require('dotenv').config()
 
@@ -8,7 +9,9 @@ require('dotenv').config()
 app.use(express.static("./public"));
 app.use(express.json())
 
-app.get('/');
+// routes
+app.use('/api/v1/shop', shop)
+// app.use('/api/v1/cart', cart)
 
 const port = 8080;
 //app.listen(8080, console.log('Server succesfullt started..'));
