@@ -10,7 +10,7 @@ app.use(express.static("./public"));
 app.use(express.json())
 
 // routes
-app.use('/api/v1/shop', shop)
+app.use('/api/v1/shops', shop)
 // app.use('/api/v1/cart', cart)
 
 const port = 8080;

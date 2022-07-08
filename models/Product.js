@@ -12,6 +12,12 @@ const ProductSchema = new mongoose.Schema({
     required: [true, 'must provide price'],
     max: 200.00,
   },
+  shop: {
+    type: String,
+    required: [true, "must provide shop name"],
+    trim: true,
+    maxlength: [20, "shop name can not be more than 20 characters"]
+  }
 });
 
 module.exports = mongoose.model("Product", ProductSchema);
