@@ -1,5 +1,4 @@
 const Product = require('../models/Product')
-//this
 const Shop = require('../models/Shop')
 
 const getAllProducts = async (req, res) => {
@@ -86,6 +85,14 @@ const createShop = async (req, res) => {
   }
 };
 
+const getAllShops = async (req, res) => {
+  try {
+    const shops = await Shop.find({});
+    res.status(200).json({ shops });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+}
 
 module.exports = {
   getAllProducts,
@@ -93,5 +100,6 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  getAllShops,
   createShop
 }
