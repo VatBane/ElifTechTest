@@ -20,7 +20,7 @@ const ProductSchema = new mongoose.Schema({
   },
   short: {
     type: String,
-    default: 'product'
+    default: 'product'    
   }
 });
 

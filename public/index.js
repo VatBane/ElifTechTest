@@ -1,3 +1,5 @@
+let items;
+
 const getShops = async () => {
   const res = await fetch("/api/v1/shops", { method: "GET" });
   const shops = await res.json();
@@ -32,13 +34,39 @@ const createCard = (row, item) => {
 
   // const title = document.createElement('h5');
   // title.setAttribute('class', 'card-title');
-
-  console.log(card);
 };
 
-const createRow = (board) => {
-  const row = $(`<div class='row'></div>`).appendTo(board)
+const createRow = (board, size) => {
+  let row;
+  if (size < 3) {
+    row = $(`<div class='row item-row'></div>`).appendTo(board);
+  } else {
+    row = $(`<div class='row item-row full'></div>`).appendTo(board);
+  }
   return row;
+}
+
+// const createColumn = (row) => {
+//   let col;
+//   col = $(`<div class="col-3 item"></div>`).appendTo(row);
+//   return col;
+// }
+
+const fillBoard = (num) => {
+      if (items.length < 1) {
+        document.getElementById('board').innerHTML ="Choose a shop";
+        return;
+      }
+      document.getElementById('board').innerHTML ="";
+      const rowsNum = Math.floor(items.length / num) + 1;
+      let row;
+      for (let i = 0; i < items.length; i++) {
+        if (i%num == 0) {
+          row = createRow(document.getElementById('board'), items.length-i);
+        }
+        // const col = createColumn(row);
+        const card = createCard(row, items[i]);
+      }
 }
 
 const addShop = (shops) => {
@@ -50,16 +78,22 @@ const addShop = (shops) => {
     li.innerHTML = shops[i].name;
 
     li.addEventListener("click", async () => {
-      document.getElementById('board').innerHTML ="";
-      const items = await getItems(li.id);
-      const rowsNum = Math.floor(items.length / 3) + 1;
-      let row;
-      for (let i = 0; i < items.length; i++) {
-        if (i%3==0) {
-          row = createRow(document.getElementById('board'));
-        }
-        const card = createCard(row, items[i]);
-      }
+      items = await getItems(li.id);
+      window.dispatchEvent(new Event('resize'));
+      // if (items.length < 1) {
+      //   document.getElementById('board').innerHTML ="Choose a shop";
+      //   return;
+      // }
+      // document.getElementById('board').innerHTML ="";
+      // const rowsNum = Math.floor(items.length / 3) + 1;
+      // let row;
+      // for (let i = 0; i < items.length; i++) {
+      //   if (i%3 == 0) {
+      //     row = createRow(document.getElementById('board'), items.length-i);
+      //   }
+      //   // const col = createColumn(row);
+      //   const card = createCard(row, items[i]);
+      // }
     });
     shop_box.appendChild(li);
   }
@@ -70,4 +104,17 @@ const init = async () => {
   addShop(shops);
 };
 
-init();
+init(); 
+
+window.addEventListener('resize', async ()=>{
+  console.log('resize');
+  if ($(window).width() > 1500) {
+    fillBoard(4);
+  } 
+  if ($(window).width() < 1500 && $(window).width() > 1200) {
+    fillBoard(3)
+  } 
+  if ($(window).width() < 1200 && $(window).width() > 800) {
+    fillBoard(2)
+  } 
+})
