@@ -17,7 +17,7 @@ const createCard = (row, item) => {
   <img src="./img/${item.short}.jpg" class="card-img-top" alt="${item.name}">
   <div class="card-body">
     <h5 class="card-title">${item.name}</h5>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <a href="#" class="btn btn-primary">Buy</a>
   </div>
 </div>`).appendTo(row);
 
@@ -64,7 +64,6 @@ const fillBoard = (num) => {
         if (i%num == 0) {
           row = createRow(document.getElementById('board'), items.length-i);
         }
-        // const col = createColumn(row);
         const card = createCard(row, items[i]);
       }
 }

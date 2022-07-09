@@ -52,6 +52,7 @@
 
 .item {
   margin:5px;
+  height: 250px;
 }
 
 @keyframes itemhover {
@@ -71,6 +72,10 @@
 
 .card-img-top {
   /* border: solid 1px;  */
+  display: block;
+  height: auto;
+  width:auto;
+  max-height: 150px;  
 }
 
 .item-row {
