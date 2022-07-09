@@ -12,12 +12,16 @@ const getItems = async (id) => {
   return items.products;
 };
 
+const sendOrder = async (id) => {
+  console.log(id);
+}
+
 const createCard = (row, item) => {
   const card = $(`<div class="card item" style="width: 18rem;">
   <img src="./img/${item.short}.jpg" class="card-img-top" alt="${item.name}">
   <div class="card-body">
     <h5 class="card-title">${item.name}</h5>
-    <a href="#" class="btn btn-primary">Buy</a>
+    <button class="btn btn-primary" onclick="sendOrder('${item._id}')">Buy</button>
   </div>
 </div>`).appendTo(row);
 

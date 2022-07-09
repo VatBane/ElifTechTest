@@ -3,6 +3,8 @@ const Shop = require('../models/Shop')
 
 const getAllProducts = async (req, res) => {
   try {
+    console.log(req.sessionID);
+
     const {shop: shopAlias} = req.params;
     const shop = await Shop.findOne({urlAlias: shopAlias});
     if (!shop) {
