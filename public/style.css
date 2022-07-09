@@ -49,3 +49,11 @@
 .home {
   text-align: center;
 }
+
+.item {
+  margin:5px;
+}
+
+.card-img-top {
+  /* border: solid 1px;  */
+}

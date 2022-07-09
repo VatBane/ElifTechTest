@@ -10,12 +10,11 @@ const getItems = async (id) => {
   return items.products;
 };
 
-const createCard = (row) => {
-  const card = $(`<div class="card" style="width: 18rem;">
-  <img src="" class="card-img-top" alt="...">
+const createCard = (row, item) => {
+  const card = $(`<div class="card item" style="width: 18rem;">
+  <img src="./img/${item.short}.jpg" class="card-img-top" alt="${item.name}">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <h5 class="card-title">${item.name}</h5>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>`).appendTo(row);
@@ -51,6 +50,7 @@ const addShop = (shops) => {
     li.innerHTML = shops[i].name;
 
     li.addEventListener("click", async () => {
+      document.getElementById('board').innerHTML ="";
       const items = await getItems(li.id);
       const rowsNum = Math.floor(items.length / 3) + 1;
       let row;
@@ -58,8 +58,7 @@ const addShop = (shops) => {
         if (i%3==0) {
           row = createRow(document.getElementById('board'));
         }
-        console.log(row);
-        const card = createCard(row);
+        const card = createCard(row, items[i]);
       }
     });
     shop_box.appendChild(li);
