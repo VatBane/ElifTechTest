@@ -17,6 +17,10 @@ const ProductSchema = new mongoose.Schema({
     required: [true, "must provide shop name"],
     trim: true,
     maxlength: [20, "shop name can not be more than 20 characters"]
+  },
+  short: {
+    type: String,
+    default: 'product'    
   }
 });
 
