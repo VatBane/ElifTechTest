@@ -86,6 +86,10 @@
   margin-right: 5px;
 }
 
+.num_input {
+  width: 50%; 
+}
+
 /* .item-row.full {
   justify-content: space-around;
 } */

@@ -1,14 +1,4 @@
-const createRow = (board, size) => {
-  let row;
-  if (size < 3) {
-    row = $(`<div class='row item-row'></div>`).appendTo(board);
-  } else {
-    row = $(`<div class='row item-row full'></div>`).appendTo(board);
-  }
-  return row;
-};
-
-const createCard = (row, item) => {
+const createCard = (board, item) => {
   const card = $(`<div class="card item" style="width: 18rem;">
   <img src="./img/${item.short}.jpg" class="card-img-top" alt="${item.name}">
   <div class="card-body">
@@ -22,56 +12,32 @@ const createCard = (row, item) => {
       </div>
     <button class="btn btn-primary" onclick="sendOrder('${item._id}')">Buy</button>
   </div>
-</div>`).appendTo(row);
+</div>`).appendTo(board);
 };
 
-const fillBoard = (num) => {
-  if (items.length < 1) {
-    document.getElementById("board").innerHTML = "Choose a shop";
-    return;
-  }
-  document.getElementById("board").innerHTML = "";
-  const rowsNum = Math.floor(items.length / num) + 1;
-  let row;
-  for (let i = 0; i < items.length; i++) {
-    if (i % num == 0) {
-      row = createRow(document.getElementById("board"), items.length - i);
-    }
-    const card = createCard(row, items[i]);
-  }
-};
+const currentPrice = (price, id) => {
+  const amount = document.getElementById(`num${id}`).value;
+  const h = document.getElementById(`pr${id}`);
+  h.innerHTML = Math.round(price*amount * 100)/100 + "$";
+}
 
-const createOrderCard = (row, item) => {
-  console.log(item.price.$numberDecimal);
-  const card = $(`<div class="card item" style="width: 18rem;">
-  <img src="./img/${item.short}.jpg" class="card-img-top" alt="${item.name}">
+const createOrderCard = (board, item) => {
+  const price = item.price.$numberDecimal;
+  const card = $(`<div class="card item" style="width: 18rem;" id="${item._id}">
+  <img src="./img/${item.short}.jpg" class="card-img-top img-fluid" alt="${item.name}">
   <div class="card-body">
     <div class="row justify-content-between">
-      <div class="col-8">
+      <div class="col">
         <h5 class="card-title">${item.name}</h5>
       </div>
-      <div class="col-4">
-        <h5 class="card-title">${item.price.$numberDecimal}$</h5>
+      <div class="col">
+        <h5 class="card-title" id="pr${item._id}">${price}$</h5>
       </div>
       </div>
-      <input type="number" id=${item._id} min="1", max="5">
+      <div class="row justify-content-between">
+        <input class="num_input" type="number" id="num${item._id}" min="1", max="5" value="1" onchange="currentPrice('${price}', '${item._id}')">
+        <button type="button" class="btn-close" aria-label="Close" onclick="deleteItem('${item._id}')"></button>
+      </div>
   </div>
-</div>`).appendTo(row);
-};
-
-const fillOrderBoard = (num) => {
-  if (items.length < 1) {
-    document.getElementById("board").innerHTML =
-      "Choose some products in the shop";
-    return;
-  }
-  document.getElementById("board").innerHTML = "";
-  const rowsNum = Math.floor(items.length / num) + 1;
-  let row;
-  for (let i = 0; i < items.length; i++) {
-    if (i % num == 0) {
-      row = createRow(document.getElementById("board"), items.length - i);
-    }
-    const card = createOrderCard(row, items[i]);
-  }
+</div>`).appendTo(board);
 };

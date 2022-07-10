@@ -26,21 +26,11 @@ const addShop = (shops) => {
 
     li.addEventListener("click", async () => {
       items = await getItems(li.id);
-      window.dispatchEvent(new Event("resize"));
-      // if (items.length < 1) {
-      //   document.getElementById('board').innerHTML ="Choose a shop";
-      //   return;
-      // }
-      // document.getElementById('board').innerHTML ="";
-      // const rowsNum = Math.floor(items.length / 3) + 1;
-      // let row;
-      // for (let i = 0; i < items.length; i++) {
-      //   if (i%3 == 0) {
-      //     row = createRow(document.getElementById('board'), items.length-i);
-      //   }
-      //   // const col = createColumn(row);
-      //   const card = createCard(row, items[i]);
-      // }
+
+      if (items) document.getElementById('board').innerHTML ="";
+      for (let i = 0; i < items.length; i++) {
+        createCard(board, items[i]);        
+      }
     });
     shop_box.appendChild(li);
   }
@@ -52,19 +42,6 @@ const init = async () => {
 };
 
 init();
-
-window.addEventListener("resize", async () => {
-  console.log(window.localStorage);
-  if ($(window).width() > 1500) {
-    fillBoard(4);
-  }
-  if ($(window).width() < 1500 && $(window).width() > 1200) {
-    fillBoard(3);
-  }
-  if ($(window).width() < 1200 && $(window).width() > 800) {
-    fillBoard(2);
-  }
-});
 
 const cart = async () => {
   window.location.href = "/cart.html"

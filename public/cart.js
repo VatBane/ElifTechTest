@@ -10,7 +10,9 @@ const showItems = async () => {
     }
   }
 
-  fillOrderBoard(items.length);
+  for (let i = 0; i < items.length; i++) {
+    createOrderCard(document.getElementById('board'), items[i])
+  }
 }
 
 const init = () => {
@@ -20,12 +22,9 @@ const init = () => {
 init()
 
 const submitOrder = async () => {
-  window.localStorage.clear();
-
   for (let i = 0; i < items.length; i++) {
-    const amount = document.getElementById(`${items[i]._id}`).value;
+    const amount = document.getElementById(`num${items[i]._id}`).value;
     items[i].amount = amount;
-    console.log(amount);
   }
 
   const name = document.getElementById('nameInput').value;
@@ -33,7 +32,7 @@ const submitOrder = async () => {
   const phone = document.getElementById('phoneInput').value;
   const address = document.getElementById('addressInput').value;
 
-  await fetch('/api/v1/cart', {
+  const res = await fetch('/api/v1/cart', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -46,4 +45,17 @@ const submitOrder = async () => {
       address: address, 
     })
   })
+
+  if (res.ok) {
+    for (let i = 0; i < items.length; i++) {
+      deleteItem(items[i]._id);
+    }
+    window.localStorage.clear();
+  }
+}
+
+function deleteItem (id) {
+  const el = document.getElementById(id);
+  el.remove();
+  window.localStorage.removeItem(id);
 }
