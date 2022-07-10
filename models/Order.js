@@ -5,21 +5,21 @@ const OrderSchema = new mongoose.Schema({
     type: Array,
     required: [true, 'Please, order something...']
   },
-  customer_name: {
+  name: {
     type: String,
     required: [true, 'Please, provide name'],
     trim: true,
   },
-  customer_address: {
+  address: {
     type: String,
     required: [true, 'Please, provide address'],
     trim: true,
   },
-  customer_phone: {
+  phone: {
     type: String,
     required: [true, 'Please, provide phone number']
   },
-  customer_email: {
+  email: {
     type: String,
     required: [true, 'Please, provide email address']
   },

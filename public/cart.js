@@ -13,8 +13,6 @@ const showItems = async () => {
   fillOrderBoard(items.length);
 }
 
-
-
 const init = () => {
   showItems();
 }
@@ -25,9 +23,15 @@ const submitOrder = async () => {
   window.localStorage.clear();
 
   for (let i = 0; i < items.length; i++) {
-    const amount = document.getElementById(`${items[i]._id}`);
+    const amount = document.getElementById(`${items[i]._id}`).value;
     items[i].amount = amount;
+    console.log(amount);
   }
+
+  const name = document.getElementById('nameInput').value;
+  const email = document.getElementById('emailInput').value;
+  const phone = document.getElementById('phoneInput').value;
+  const address = document.getElementById('addressInput').value;
 
   await fetch('/api/v1/cart', {
     method: 'POST',
@@ -35,7 +39,11 @@ const submitOrder = async () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      products:items,
+      products: items,
+      name: name,
+      email: email,
+      phone: phone,
+      address: address, 
     })
   })
 }
