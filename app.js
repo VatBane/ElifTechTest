@@ -23,7 +23,7 @@ app.use('/api/v1/shops', shops)
 app.use('/api/v1/admin', admin)
 app.use('/api/v1/cart', cart)
 
-const port = 8080;
+const port = proccess.env.PORT || 8080;
 //app.listen(8080, console.log('Server succesfullt started..'));
 
 const start = async ()=>{
