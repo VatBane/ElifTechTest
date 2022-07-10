@@ -90,6 +90,15 @@
   width: 50%; 
 }
 
+#form {
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#cart {
+  margin:10px;
+}
 /* .item-row.full {
   justify-content: space-around;
 } */

@@ -32,6 +32,12 @@ const submitOrder = async () => {
   const phone = document.getElementById('phoneInput').value;
   const address = document.getElementById('addressInput').value;
 
+  console.log(name);
+
+  if (name === "" || email === "" || phone === "" || address === "") {
+    alert("Please enter data")
+  }
+
   const res = await fetch('/api/v1/cart', {
     method: 'POST',
     headers: {
