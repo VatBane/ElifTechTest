@@ -1,7 +1,8 @@
 const Order = require('../models/Order')
+const path = require('path');
 
 const getOrder = (req, res) => {
-
+  res.sendFile(path.join(__dirname, '/../public/cart.html'))
 }
 
 const createOrder = async (req, res) => {

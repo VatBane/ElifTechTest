@@ -10,7 +10,7 @@ const ProductSchema = new mongoose.Schema({
   price: {
     type: mongoose.Types.Decimal128,
     required: [true, 'must provide price'],
-    max: 200.00,
+    max: 500.00,
   },
   shop: {
     type: String,

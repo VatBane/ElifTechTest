@@ -13,31 +13,25 @@ const getItems = async (id) => {
 };
 
 const sendOrder = async (id) => {
-  console.log(id);
-}
+  window.localStorage.setItem(id, id)
+};
 
 const createCard = (row, item) => {
+  console.log(item.price.$numberDecimal);
   const card = $(`<div class="card item" style="width: 18rem;">
   <img src="./img/${item.short}.jpg" class="card-img-top" alt="${item.name}">
   <div class="card-body">
-    <h5 class="card-title">${item.name}</h5>
+    <div class="row justify-content-between">
+      <div class="col-8">
+        <h5 class="card-title">${item.name}</h5>
+      </div>
+      <div class="col-4">
+        <h5 class="card-title">${item.price.$numberDecimal}$</h5>
+      </div>
+      </div>
     <button class="btn btn-primary" onclick="sendOrder('${item._id}')">Buy</button>
   </div>
 </div>`).appendTo(row);
-
-  // const card = document.createElement('div')
-  // card.setAttribute('class', 'card');
-  // card.setAttribute('style', 'width: 18rem;');
-
-  // const img = document.createElement('img');
-  // img.setAttribute('class', 'card-img-top');
-  // // NEEEEEED TO ADD PHOTO
-
-  // const body = document.createElement('div');
-  // body.setAttribute('class', 'card-body');
-
-  // const title = document.createElement('h5');
-  // title.setAttribute('class', 'card-title');
 };
 
 const createRow = (board, size) => {
@@ -48,7 +42,7 @@ const createRow = (board, size) => {
     row = $(`<div class='row item-row full'></div>`).appendTo(board);
   }
   return row;
-}
+};
 
 // const createColumn = (row) => {
 //   let col;
@@ -57,20 +51,20 @@ const createRow = (board, size) => {
 // }
 
 const fillBoard = (num) => {
-      if (items.length < 1) {
-        document.getElementById('board').innerHTML ="Choose a shop";
-        return;
-      }
-      document.getElementById('board').innerHTML ="";
-      const rowsNum = Math.floor(items.length / num) + 1;
-      let row;
-      for (let i = 0; i < items.length; i++) {
-        if (i%num == 0) {
-          row = createRow(document.getElementById('board'), items.length-i);
-        }
-        const card = createCard(row, items[i]);
-      }
-}
+  if (items.length < 1) {
+    document.getElementById("board").innerHTML = "Choose a shop";
+    return;
+  }
+  document.getElementById("board").innerHTML = "";
+  const rowsNum = Math.floor(items.length / num) + 1;
+  let row;
+  for (let i = 0; i < items.length; i++) {
+    if (i % num == 0) {
+      row = createRow(document.getElementById("board"), items.length - i);
+    }
+    const card = createCard(row, items[i]);
+  }
+};
 
 const addShop = (shops) => {
   const shop_box = document.getElementById("shop-box");
@@ -82,7 +76,7 @@ const addShop = (shops) => {
 
     li.addEventListener("click", async () => {
       items = await getItems(li.id);
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event("resize"));
       // if (items.length < 1) {
       //   document.getElementById('board').innerHTML ="Choose a shop";
       //   return;
@@ -107,17 +101,20 @@ const init = async () => {
   addShop(shops);
 };
 
-init(); 
+init();
 
-window.addEventListener('resize', async ()=>{
-  console.log('resize');
+window.addEventListener("resize", async () => {
+  console.log(window.localStorage);
   if ($(window).width() > 1500) {
     fillBoard(4);
-  } 
+  }
   if ($(window).width() < 1500 && $(window).width() > 1200) {
-    fillBoard(3)
-  } 
+    fillBoard(3);
+  }
   if ($(window).width() < 1200 && $(window).width() > 800) {
-    fillBoard(2)
-  } 
-})
+    fillBoard(2);
+  }
+});
+
+const cart = async () => {
+}
