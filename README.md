@@ -3,6 +3,8 @@
 
 To start this application you need:
 
+Download and install heroku
+
 Go to the Command line and type these comands:
 1. Clone this repo
 ```
