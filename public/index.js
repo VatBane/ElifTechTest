@@ -43,6 +43,10 @@ const init = async () => {
 
 init();
 
-const cart = async () => {
+const cart = () => {
   window.location.href = "/cart.html"
+}
+
+const history = () => {
+  window.location.href = "/history"
 }
