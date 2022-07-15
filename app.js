@@ -46,7 +46,12 @@ const isLogin = (req, res, next) => {
 }
 
 app.get('/history', isLogin, (req, res)=>{
-  res.sendFile(__dirname + '/public/history.html')
+  try {
+    const decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+    console.log(decoded);
+  } catch (error) {
+    res.redirect('/login'); 
+  }
 })
 
 app.get('/login', (req, res) => {
@@ -57,8 +62,8 @@ app.get('/login', (req, res) => {
   // jwt.sign({login: req.body.login}, process.env.JWT_SECRET, (err, token)=> {
   //   console.log(err, token);
   // })
-  
-  res.send('login')
+
+  res.sendFile(__dirname + '/public/login.html')
 })
 
 const port = process.env.PORT || 8080;

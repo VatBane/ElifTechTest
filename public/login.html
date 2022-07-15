@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElifTechStore</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">  
+  <script src="jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+  <nav class="navbar bg-light">
+    <div class="container-fluid ">
+      <div class="row justify-content-around">
+        <div class="col-2">      
+          <a class="navbar-brand" href="/">
+          <img src="./fast-food.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          Shops
+        </a>
+        </div>
+        <div class="col-2">
+          <button onclick="cart()">Cart</button>
+        </div>
+        <div class="col-2">
+          <button onclick="history()">History</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col login">
+        <span>Sign In</span>
+        <form>
+          <div class="mb-3">
+            <label for="loginInput" class="form-label">Login</label>
+            <input type="text" class="form-control" id="loginInput" aria-describedby="loginHelp">
+            <div id="loginHelp" class="form-text">Login must contain latin letters and digits</div>
+          </div>
+          <div class="mb-3">
+            <label for="passInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passInput">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="col login">
+        <span>Sign Up</span>
+        <form>
+          <div class="mb-3">
+            <label for="loginInput" class="form-label">Login</label>
+            <input type="text" class="form-control" id="loginInput" aria-describedby="loginHelp">
+            <div id="loginHelp" class="form-text">Login must contain latin letters and digits</div>
+          </div>
+          <div class="mb-3">
+            <label for="passInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passInput">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
