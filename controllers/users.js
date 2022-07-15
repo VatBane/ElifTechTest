@@ -58,8 +58,13 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { login, password } = req.body;
+    let user = await User.findOne({login: login});
+    if (user) {
+      return res.status(400).json({msg: 'Login is occupied'});
+    }
     const encodedPass = cryptoJS.AES.encrypt(password, process.env.JWT_SECRET).toString();
-    const user = await User.create({login: login, password: encodedPass});
+    console.log(req.body);
+    user = await User.create({login: login, password: encodedPass});
     res.status(201).json({ user });
   } catch (error) {
     console.log(error);
