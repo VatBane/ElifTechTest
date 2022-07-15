@@ -16,6 +16,20 @@ const getHistory = async (req, res) => {
   }
 }
 
+const getOrder = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const order = await Order.findOne({_id: id});
+    if (!order) {
+      return res.status(404).json({msg: `There is no such an order`})
+    }
+    res.status(200).json({ order: order, time: order.createdAt });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+}
+
 module.exports = {
   getHistory,
+  getOrder
 }

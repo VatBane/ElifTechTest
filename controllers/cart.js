@@ -6,7 +6,7 @@ const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find({});
     if (!orders) {
-      return res.status(404).json({msg: `There is no such an order`})
+      return res.status(404).json({msg: `There is no orders`})
     }
     res.status(200).json({ orders });
   } catch (error) {
