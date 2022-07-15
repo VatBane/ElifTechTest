@@ -9,9 +9,11 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Please, provide password'],
-    minlength: [6, 'login must be more 6 symbols'],
-    maxlength: [20, 'login must be less 20 symbols']    
+    required: [true, 'Please, provide password']
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   }
 });
 

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 const shops = require("./routes/shops");
 const admin = require("./routes/admin");
 const cart = require("./routes/cart");
-
+const users = require('./routes/users');
 
 // middleware
 app.use(express.static("./public"));
@@ -18,6 +18,7 @@ app.use(express.json())
 app.use('/api/v1/shops', shops)
 app.use('/api/v1/admin', admin)
 app.use('/api/v1/cart', cart)
+app.use('/api/v1/users', users)
 
 const isLogin = (req, res, next) => {
   if (req.headers.authorization) {
