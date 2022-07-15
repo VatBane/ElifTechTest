@@ -50,6 +50,14 @@ app.get('/history', isLogin, (req, res)=>{
 })
 
 app.get('/login', (req, res) => {
+  // jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded)=>{
+  //   console.log(decoded);
+  // });  
+
+  // jwt.sign({login: req.body.login}, process.env.JWT_SECRET, (err, token)=> {
+  //   console.log(err, token);
+  // })
+  
   res.send('login')
 })
 
