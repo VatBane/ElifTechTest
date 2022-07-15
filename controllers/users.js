@@ -1,18 +1,46 @@
 const User = require('../models/User')
-const crypto = require('crypto-js')
-const passPhrase = 'silvio';
+const cryptoJS = require('crypto-js')
+// const passPhrase = 'silvio';
+
+const createToken = async (data) => {
+  const headers = {
+    alg: "HS256",
+    typ: "JWT"
+  }
+  let wordArray = cryptoJS.enc.Utf8.parse(JSON.stringify(headers));
+  const headEnc = cryptoJS.enc.Base64url.stringify(wordArray);
+
+  wordArray = cryptoJS.enc.Utf8.parse(JSON.stringify(data));
+  const payload = cryptoJS.enc.Base64url.stringify(wordArray);
+
+  const string = headEnc + '.' + payload;
+  let signature = cryptoJS.HmacSHA256(string, process.env.JWT_SECRET);
+  signature = cryptoJS.enc.Base64url.stringify(signature);
+
+  return headEnc + "." + payload + "." + signature;
+}
 
 const getUser = async (req, res) => {
   try {
-    const { login } = req.params
+    // const { login } = req.params
+    // const user = await User.findOne({ login });
+    // res.status(201).json({ user });
+
+    const { login , password} = req.body;
     const user = await User.findOne({ login });
-    res.status(201).json({ user });
+    if (!user) {
+      return res.status(400).json({msg: `Invalid login`})
+    }
+    const bytes = cryptoJS.AES.decrypt(user.password, process.env.JWT_SECRET);
+    const dbPass = bytes.toString(cryptoJS.enc.Utf8);
+    if (dbPass != password) {
+      return res.status(400).json({msg: `Invalid password`})
+    }
+    const token = await createToken({login, admin: user.isAdmin});
+    res.status(200).json({token})
   } catch (error) {
     res.status(500).json({ msg: error });
   }
-  // const bytes = crypto.AES.decrypt(encodedPass, passPhrase);
-  // const originalText = bytes.toString(crypto.enc.Utf8);
-  // console.log(originalText);
 };
 
 const getAllUsers = async (req, res) => {
@@ -30,7 +58,7 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { login, password } = req.body;
-    const encodedPass = crypto.AES.encrypt(password, passPhrase).toString();
+    const encodedPass = cryptoJS.AES.encrypt(password, process.env.JWT_SECRET).toString();
     const user = await User.create({login: login, password: encodedPass});
     res.status(201).json({ user });
   } catch (error) {
@@ -43,4 +71,5 @@ module.exports = {
   getUser,
   getAllUsers,
   createUser,
+  createToken
 }

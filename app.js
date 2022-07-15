@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require('./db/connect')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
+const crypto = require('crypto-js');
 
 // routers
 const shops = require("./routes/shops");
@@ -39,6 +40,7 @@ const isLogin = (req, res, next) => {
         }
       }
     )
+    
   }
   next();
 }
@@ -47,8 +49,8 @@ app.get('/history', isLogin, (req, res)=>{
   res.sendFile(__dirname + '/public/history.html')
 })
 
-app.get('/login', isLogin, (req, res) => {
-  res.send('Logined')
+app.get('/login', (req, res) => {
+  res.send('login')
 })
 
 const port = process.env.PORT || 8080;
