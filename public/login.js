@@ -20,9 +20,25 @@ const signUp = async () => {
   if(!res.ok) {
     let msg = await res.json();
     alert(msg.msg);
+  } else {
+    alert('Successfuly signed up, you can login now')
   }
 } 
 
-const signIn = () => {
-  window.location.href = '/';
+const signIn = async () => {
+  const login = document.getElementById('loginIn').value;
+  const pass = document.getElementById('passIn').value;
+
+  const res = await fetch('/api/v1/users/auth', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      login: login,
+      password: pass
+    })
+  })
+
+  console.log('ok');
 } 

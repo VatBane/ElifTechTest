@@ -22,10 +22,6 @@ const createToken = async (data) => {
 
 const getUser = async (req, res) => {
   try {
-    // const { login } = req.params
-    // const user = await User.findOne({ login });
-    // res.status(201).json({ user });
-
     const { login , password} = req.body;
     const user = await User.findOne({ login });
     if (!user) {
@@ -37,7 +33,7 @@ const getUser = async (req, res) => {
       return res.status(400).json({msg: `Invalid password`})
     }
     const token = await createToken({login, admin: user.isAdmin});
-    res.status(200).json({token})
+    res.status(201).cookie('access_token', token, {httpOnly: true, secure: true}).send('ok');
   } catch (error) {
     res.status(500).json({ msg: error });
   }
