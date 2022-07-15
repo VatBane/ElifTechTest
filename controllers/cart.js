@@ -1,14 +1,13 @@
 const Order = require('../models/Order')
 const path = require('path');
 
-const getOrder = async (req, res) => {
+const getAllOrders = async (req, res) => {
   try {
-    console.log(req.sessionID);
-    const order = await Order.find({});
-    if (!order) {
+    const orders = await Order.find({});
+    if (!orders) {
       return res.status(404).json({msg: `There is no such an order`})
     }
-    res.status(200).json({ order });
+    res.status(200).json({ orders });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -23,4 +22,4 @@ const createOrder = async (req, res) => {
   }
 }
 
-module.exports = {getOrder, createOrder}
+module.exports = {getAllOrders, createOrder}

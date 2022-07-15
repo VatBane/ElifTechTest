@@ -39,6 +39,4 @@ const signIn = async () => {
       password: pass
     })
   })
-
-  console.log('ok');
 } 
