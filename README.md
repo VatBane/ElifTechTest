@@ -1,5 +1,5 @@
 # ElifTechTest
-## https://elif-tech-shop-03.herokuapp.com/
+## https://elif-tech-shop-04.herokuapp.com/
 
 To start this application you need:
 
@@ -34,6 +34,7 @@ heroku create app-name
 6. Setup a env variable
 ```
 heroku config:set MONGO_URI="your connection string"
+heroku config:set JWT_SECRET="your secret key"
 ```
 7. Push to heroku
 ``` 
