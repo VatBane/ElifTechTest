@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getOrder, createOrder} = require('../controllers/cart');
+const {getAllOrders, createOrder} = require('../controllers/cart');
 const {getProduct} = require('../controllers/shops');
 // const {
 //   getAllOrders,
@@ -11,7 +11,7 @@ const {getProduct} = require('../controllers/shops');
 //   deleteOrder
 // } = require('../controllers/shop')
 
-router.route('/').get(getOrder).post(createOrder);
+router.route('/').get(getAllOrders).post(createOrder);
 router.route('/:id').get(getProduct);
 // router.route('/:id').get(getProduct).patch(updateProduct).delete(deleteProduct);
 
