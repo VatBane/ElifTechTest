@@ -23,7 +23,7 @@ const getOrder = async (req, res) => {
     if (!order) {
       return res.status(404).json({msg: `There is no such an order`})
     }
-    res.status(200).json({ order: order, time: order.createdAt });
+    res.status(200).json({ order: order});
   } catch (error) {
     res.status(500).json({ msg: error });
   }

@@ -39,4 +39,6 @@ const signIn = async () => {
       password: pass
     })
   })
+
+  window.location.href = "/history"
 } 
